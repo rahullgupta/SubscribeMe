@@ -39,9 +39,9 @@ const Payment: React.FC<paymentProps> = ({
             // const price = year ? selectedplan.yearprice : selectedplan.monthprice;
             // addSubscription(user.uid, selectedplan.name, price, billcycle);
             // setSubscribed(true);
-            // await axios.post("/api/subscribe", {
-            //   plan: subscribedPlan,
-            // });
+            await axios.post("/api/subscribe", {
+              plan: subscribedPlan,
+            });
             router.push("/");
           }
         });

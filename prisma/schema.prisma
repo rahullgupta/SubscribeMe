@@ -20,4 +20,5 @@ model Plan {
     name        String
     price       Int
     description String
+    type String
 }

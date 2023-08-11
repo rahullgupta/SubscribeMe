@@ -1,5 +1,4 @@
 import Title from "@/components/Title";
-import useCurrentUser from "@/hooks/useCurrentUser";
 import usePlanList from "@/hooks/usePlanList";
 import getStripe from "@/lib/get-stripe";
 import { Elements } from "@stripe/react-stripe-js";
@@ -9,6 +8,7 @@ import { getSession, signOut } from "next-auth/react";
 import { useCallback, useState } from "react";
 import { VscTriangleDown } from "react-icons/vsc";
 import Payment from "../components/payment";
+import prismadb from "@/lib/prismadb";
 
 export async function getServerSideProps(context: NextPageContext) {
   const session = await getSession(context);
@@ -20,6 +20,25 @@ export async function getServerSideProps(context: NextPageContext) {
         permanent: false,
       },
     };
+  } else {
+    if (session.user?.email) {
+      const user = await prismadb.user.findUnique({
+        where: {
+          email: session.user?.email,
+        },
+      });
+      if (user?.subscribed.length == 1) {
+        const plan = JSON.parse(JSON.stringify(user.subscribed));
+        if (plan[0].active) {
+          return {
+            redirect: {
+              destination: "/",
+              permanent: false,
+            },
+          };
+        }
+      }
+    }
   }
 
   return {
@@ -91,12 +110,6 @@ const Plans = () => {
   return (
     <>
       <Elements stripe={stripePromise}>
-        <div
-          onClick={() => signOut()}
-          className="px-3 text-right text-[#1F4D90] text-md"
-        >
-          Sign out
-        </div>
         {pay ? (
           <Payment
             subscribedPlan={subscribed}
@@ -105,9 +118,15 @@ const Plans = () => {
           />
         ) : (
           <div className="absolute h-full w-full">
+            <div
+              onClick={() => signOut()}
+              className="px-3 text-right text-[#1F4D90] text-md"
+            >
+              Sign out
+            </div>
             <Title value="Plans" />
-            <div className="h-screen flex justify-center items-center">
-              <div className="bg-white px-10 py-10 self-center mt-2 w-3/5">
+            <div className="flex justify-center items-center">
+              <div className="bg-white px-10 pt-7 self-center mt-2 w-3/5">
                 <div className="text-black text-3xl mb-9 text-center font-semibold">
                   <h1>Choose the right plan for you</h1>
                 </div>

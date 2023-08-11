@@ -9,13 +9,14 @@ export default async function handler(
     return res.status(405).end();
   }
   try {
-    const { name, price, description } = req.body;
+    const { name, price, description, type } = req.body;
 
     const plan = await prismadb.plan.create({
       data: {
         name,
         price,
         description,
+        type,
       },
     });
 

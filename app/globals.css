@@ -104,18 +104,6 @@
   background-color: #FBF0F0;
   color: red;
 }
-.currentname {
-  margin-top: 15px;
-}
-.currentdevices {
-  color: grey;
-  font-size: 0.8em;
-}
-.currentprice {
-  margin-block: 5px 20px;
-  font-size: 1.5em;
-  font-weight: bold;
-}
 .changebut {
   text-decoration: none;
   cursor: pointer;
@@ -123,8 +111,4 @@
   border: #1F4D90 1px solid;
   border-radius: 5px;
   padding: 5px 15px;
-}
-.currentdate {
-  margin-top: 20px;
-  font-size: 0.8em;
 }

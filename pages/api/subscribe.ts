@@ -14,13 +14,30 @@ export default async function handler(
 
       const { plan } = req.body;
 
+      const updatedUser = await prismadb.user.update({
+        where: {
+          email: currentUser.email || "",
+        },
+        data: {
+          subscribed: [],
+        },
+      });
+
       const user = await prismadb.user.update({
         where: {
           email: currentUser.email || "",
         },
         data: {
           subscribed: {
-            push: plan,
+            push: {
+              name: plan.name,
+              price: plan.price,
+              description: plan.description,
+              type: plan.type,
+              active: true,
+              subscribedAt: Date().toString(),
+              cancelledAt: "",
+            },
           },
         },
       });
@@ -28,26 +45,40 @@ export default async function handler(
       return res.status(200).json(user);
     }
 
-    // if (req.method === "DELETE") {
-    //   const currentUser = await serverAuth(req, res);
+    if (req.method === "DELETE") {
+      const currentUser = await serverAuth(req, res);
 
-    //   const { plan } = req.query;
+      const user = await prismadb.user.findUnique({
+        where: {
+          email: currentUser.email || "",
+        },
+      });
 
-    //   const newPlan = plan.json()
+      const plan = JSON.parse(JSON.stringify(user?.subscribed[0]));
 
-    //   const updatedFavoriteIds = without(currentUser.subscribed, plan);
+      const updatedUser = await prismadb.user.update({
+        where: {
+          email: currentUser.email || "",
+        },
+        data: {
+          subscribed: {
+            set: [
+              {
+                name: plan.name,
+                price: plan.price,
+                description: plan.description,
+                type: plan.type,
+                active: false,
+                subscribedAt: "",
+                cancelledAt: Date().toString(),
+              },
+            ],
+          },
+        },
+      });
 
-    //   const updatedUser = await prismadb.user.update({
-    //     where: {
-    //       email: currentUser.email || "",
-    //     },
-    //     data: {
-    //       favoriteIds: updatedFavoriteIds,
-    //     },
-    //   });
-
-    //   return res.status(200).json(updatedUser);
-    // }
+      return res.status(200).json(updatedUser);
+    }
 
     return res.status(405).end();
   } catch (error) {
