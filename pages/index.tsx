@@ -81,7 +81,7 @@ export default function Home() {
               <p className="text-3xl font-bold py-2">
                 &#8377; {plan.price ? plan.price : ""}
                 <span className="text-[0.8em] font-normal">
-                  {plan.type === "Yearly" ? "/yr" : "/mo"}
+                  {plan.type === "yearly" ? "/yr" : "/mo"}
                 </span>
               </p>
               <button

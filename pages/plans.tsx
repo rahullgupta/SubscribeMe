@@ -20,25 +20,6 @@ export async function getServerSideProps(context: NextPageContext) {
         permanent: false,
       },
     };
-  } else {
-    if (session.user?.email) {
-      const user = await prismadb.user.findUnique({
-        where: {
-          email: session.user?.email,
-        },
-      });
-      if (user?.subscribed.length == 1) {
-        const plan = JSON.parse(JSON.stringify(user.subscribed));
-        if (plan[0].active) {
-          return {
-            redirect: {
-              destination: "/",
-              permanent: false,
-            },
-          };
-        }
-      }
-    }
   }
 
   return {
