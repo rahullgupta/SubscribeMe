@@ -91,12 +91,6 @@ const Plans = () => {
   return (
     <>
       <Elements stripe={stripePromise}>
-        <div
-          onClick={() => signOut()}
-          className="px-3 text-right text-white text-md"
-        >
-          Sign out
-        </div>
         {pay ? (
           <Payment
             subscribedPlan={subscribed}
