@@ -2,26 +2,129 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+.bluebut {
+  padding: 12px;
+  color: white;
+  background-color: #1F4D90;
+  border-radius: 5px;
+  width: 100%;
+  cursor: pointer;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
+.paymentcont {
+  display: flex;
+  position: absolute;
+  left: 25vw;
+  top: 35vh;
+  width: 50%;
+  height: auto;
+  background-color: white;
+  border-radius: 10px;
+}
+.paymentleft {
+  flex: 1;
+  padding: 30px;
+}
+.paymentright {
+  border-radius: 0 10px 10px 0;
+  padding: 30px;
+  flex-basis: 40%;
+  background-color: rgb(211, 211, 211);
+}
+.cardtext {
+  color: grey;
+  font-size: 0.8em;
+}
+.cardelement {
+  border: 1px solid;
+  padding: 12px;
+  border-radius: 5px;
+  margin-block: 20px;
+}
+.paybut {
+  width: auto;
+  margin-right: 10px;
+}
+.buydetailslist {
+  margin-top: 20px;
+  position: relative;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.buydetailsitem {
+  width: 100%;
+}
+.detailsheading {
+  font-size: 0.8em;
+}
+.detailsdesc {
+  font-size: 0.8em;
+  position: absolute;
+  right: 0;
+  padding-top: 4px;
+}
+.managecont {
+  position: absolute;
+  background-color: white;
+  height: auto;
+  max-width: 50%;
+  border-radius: 15px;
+  left: 30vw;
+  top: 30vh;
+  padding: 20px;
+}
+.manageholder {
+  position: relative;
+}
+.cancelbut {
+  cursor: pointer;
+  position: absolute;
+  right: 0;
+  top: 4px;
+  color: #1F4D90;
+  font-weight: 600;
 }
 
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+.h3 {
+  font-size: 1.3em;
+  font-weight: 600;
+}
+.status {
+  background-color: #C3DDFC;
+  color: #1F4D90;
+  font-size: 0.8em;
+  padding: 1px 5px;
+  position: absolute;
+  top: 6px;
+  border-radius: 5px;
+}
+.status.cancelled {
+  background-color: #FBF0F0;
+  color: red;
+}
+.currentname {
+  margin-top: 15px;
+}
+.currentdevices {
+  color: grey;
+  font-size: 0.8em;
+}
+.currentprice {
+  margin-block: 5px 20px;
+  font-size: 1.5em;
+  font-weight: bold;
+}
+.changebut {
+  text-decoration: none;
+  cursor: pointer;
+  color: #1F4D90;
+  border: #1F4D90 1px solid;
+  border-radius: 5px;
+  padding: 5px 15px;
+}
+.currentdate {
+  margin-top: 20px;
+  font-size: 0.8em;
 }
