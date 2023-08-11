@@ -4,7 +4,17 @@ import getStripe from "@/lib/get-stripe";
 import { useRouter } from "next/router";
 import axios from "axios";
 
-const Payment = ({ subscribedPlan, interval, client_secret }) => {
+interface paymentProps extends React.InputHTMLAttributes<HTMLInputElement> {
+  subscribedPlan: any;
+  interval: any;
+  client_secret: any;
+}
+
+const Payment: React.FC<paymentProps> = ({
+  subscribedPlan,
+  interval,
+  client_secret,
+}) => {
   const router = useRouter();
   const elements = useElements();
   const makePay = async () => {
