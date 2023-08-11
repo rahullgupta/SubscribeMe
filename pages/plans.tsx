@@ -8,7 +8,7 @@ import { NextPageContext } from "next";
 import { getSession, signOut } from "next-auth/react";
 import { useCallback, useState } from "react";
 import { VscTriangleDown } from "react-icons/vsc";
-import Payment from "./payment";
+import Payment from "../components/payment";
 
 export async function getServerSideProps(context: NextPageContext) {
   const session = await getSession(context);
@@ -91,6 +91,12 @@ const Plans = () => {
   return (
     <>
       <Elements stripe={stripePromise}>
+        <div
+          onClick={() => signOut()}
+          className="px-3 text-right text-[#1F4D90] text-md"
+        >
+          Sign out
+        </div>
         {pay ? (
           <Payment
             subscribedPlan={subscribed}
