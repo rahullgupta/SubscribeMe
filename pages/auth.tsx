@@ -22,7 +22,7 @@ const Auth = () => {
       await signIn("credentials", {
         email,
         password,
-        callbackUrl: "/plans",
+        callbackUrl: "/",
       });
     } catch (error) {
       console.log(error);
@@ -37,15 +37,19 @@ const Auth = () => {
         password,
         subscribed: [],
       });
-      login();
+      await signIn("credentials", {
+        email,
+        password,
+        callbackUrl: "/plans",
+      });
     } catch (error) {
       console.log(error);
     }
-  }, [email, login, name, password]);
+  }, [email, name, password]);
 
   return (
     <div className="absolute h-full w-full bg-[#1F4D90]">
-      <Title value={variant === "login" ? "Sign Up" : "Login"} />
+      <Title value={variant !== "login" ? "Sign Up" : "Login"} />
       <div className="h-screen flex justify-center items-center font-semibold">
         <div className="bg-white px-10 py-10 self-center mt-2 w-2/5 max-w-md rounded-3xl">
           <h2 className="text-black text-xl mb-8 text-center">

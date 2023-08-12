@@ -101,7 +101,7 @@ const Plans = () => {
           <div className="absolute h-full w-full">
             <div
               onClick={() => signOut()}
-              className="px-3 text-right text-[#1F4D90] text-md"
+              className="px-3 text-right text-[#1F4D90] text-md cursor-pointer"
             >
               Sign out
             </div>

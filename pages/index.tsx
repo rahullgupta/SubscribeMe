@@ -50,6 +50,7 @@ export default function Home() {
 
   const handleCancel = useCallback(() => {
     axios.delete("/api/subscribe");
+    window.location.reload();
   }, []);
 
   return (
