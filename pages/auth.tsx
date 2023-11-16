@@ -3,6 +3,25 @@ import { SetStateAction, useCallback, useState } from "react";
 import axios from "axios";
 import { signIn } from "next-auth/react";
 import Title from "@/components/Title";
+import { getServerSession } from "next-auth";
+import { authOptions } from "./api/auth/[...nextauth]";
+
+export async function getServerSideProps(context: any) {
+  const session = await getServerSession(context.req, context.res, authOptions);
+
+  if (session) {
+    return {
+      redirect: {
+        destination: "/",
+        permanent: false,
+      },
+    };
+  }
+
+  return {
+    props: { session: JSON.parse(JSON.stringify(session)) },
+  };
+}
 
 const Auth = () => {
   const [email, setEmail] = useState("");

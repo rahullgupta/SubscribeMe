@@ -8,7 +8,6 @@ import { getSession, signOut } from "next-auth/react";
 import { useCallback, useState } from "react";
 import { VscTriangleDown } from "react-icons/vsc";
 import Payment from "../components/payment";
-import prismadb from "@/lib/prismadb";
 
 export async function getServerSideProps(context: NextPageContext) {
   const session = await getSession(context);
@@ -40,7 +39,6 @@ const Plans = () => {
   const [pay, setPay] = useState(false);
 
   const { data: plans = [] } = usePlanList();
-  console.log(plans);
 
   const choosePlan1 = useCallback(() => {
     setPlan("Plan1");
@@ -84,7 +82,6 @@ const Plans = () => {
       if (monthly) createCheckOut(plans[3]);
       else createCheckOut(plans[7]);
     }
-    console.log(subscribed);
     setPay(true);
   };
 
